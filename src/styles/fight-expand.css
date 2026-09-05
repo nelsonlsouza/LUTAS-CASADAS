@@ -16,3 +16,7 @@
 @media (max-width: 500px) {
   .fight-details { grid-template-columns: 1fr; }
 }
+
+.suggestion.has-fights { border-left: 3px solid #e7ad42; }
+.suggestion-name { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.fight-count-badge { padding: 3px 6px; border-radius: 4px; background: #352912; color: #f2bd50; font-size: 8px; font-weight: 700; font-style: normal; text-transform: uppercase; letter-spacing: .4px; }

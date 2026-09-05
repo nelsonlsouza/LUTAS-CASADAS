@@ -2,11 +2,12 @@ import { useMemo,useState } from 'react';
 import { AlertTriangle,ArrowRight,CheckCircle2 } from 'lucide-react';
 import { getSuggestions,getWarnings } from '../utils/matchmaking';
 
-export default function CreateFight({athletes,prefill,onCreate}){
+export default function CreateFight({athletes,fights,prefill,onCreate}){
   const[a1Id,setA1]=useState(prefill||'');const[a2Id,setA2]=useState('');const[mode,setMode]=useState('Gi');const[style,setStyle]=useState('Pontuação');const[custom,setCustom]=useState('');const[obs,setObs]=useState('');
   const a1=athletes.find(a=>a.id===a1Id);const a2=athletes.find(a=>a.id===a2Id);
   const suggestions=useMemo(()=>a1?getSuggestions(a1,athletes,mode):[],[a1,athletes,mode]);
   const warnings=a1&&a2?getWarnings(a1,a2,mode):[];
+  const fightCounts=useMemo(()=>{const counts=new Map();for(const fight of fights){counts.set(fight.atleta1Id,(counts.get(fight.atleta1Id)||0)+1);counts.set(fight.atleta2Id,(counts.get(fight.atleta2Id)||0)+1)}return counts},[fights]);
   function submit(e){e.preventDefault();if(!a1||!a2)return;onCreate({atleta1Id:a1.id,atleta2Id:a2.id,modalidade:mode,estilo:style==='Outro'?custom:style,observacoes:obs,status:'Agendada',resultado:null},warnings)}
   return <form className="create-layout" onSubmit={submit}>
     <section className="panel setup"><span className="step">1</span><div><span className="eyebrow">PRIMEIRO COMPETIDOR</span><h2>Selecione o atleta</h2></div>
@@ -19,7 +20,7 @@ export default function CreateFight({athletes,prefill,onCreate}){
       <label>Observações<textarea value={obs} onChange={e=>setObs(e.target.value)} placeholder="Opcional"/></label>
     </section>
     <section className="panel suggestions-panel"><span className="eyebrow">MATCHMAKING</span><h2>Sugestões de adversários</h2><p>Qualquer atleta pode participar de várias lutas. A pontuação apenas ordena as sugestões.</p>
-      {!a1?<div className="empty large">Selecione o primeiro atleta para ver sugestões.</div>:suggestions.map(({atleta,pontos,diferencaPeso,diferencaIdade,nivel})=><button type="button" key={atleta.id} className={`suggestion ${a2Id===atleta.id?'selected':''}`} onClick={()=>setA2(atleta.id)}><span className="initials small">{atleta.nome[0]}</span><div><strong>{atleta.nome}</strong><small>{atleta.idade} anos • {atleta.peso} kg • {atleta.faixa} • {atleta.categoria}</small><small>{atleta.academia||'Sem academia'} • Δ {diferencaPeso.toFixed(1)} kg • Δ {diferencaIdade} anos</small></div><span className={`score ${nivel.toLowerCase()}`}><b>{pontos}%</b><small>{nivel}</small></span></button>)}
+      {!a1?<div className="empty large">Selecione o primeiro atleta para ver sugestões.</div>:suggestions.map(({atleta,pontos,diferencaPeso,diferencaIdade,nivel})=>{const count=fightCounts.get(atleta.id)||0;return <button type="button" key={atleta.id} className={`suggestion ${a2Id===atleta.id?'selected':''} ${count?'has-fights':''}`} onClick={()=>setA2(atleta.id)}><span className="initials small">{atleta.nome[0]}</span><div><span className="suggestion-name"><strong>{atleta.nome}</strong>{count?<i className="fight-count-badge">Já tem {count} {count===1?'luta':'lutas'}</i>:null}</span><small>{atleta.idade} anos • {atleta.peso} kg • {atleta.faixa} • {atleta.categoria}</small><small>{atleta.academia||'Sem academia'} • Δ {diferencaPeso.toFixed(1)} kg • Δ {diferencaIdade} anos</small></div><span className={`score ${nivel.toLowerCase()}`}><b>{pontos}%</b><small>{nivel}</small></span></button>})}
       {warnings.length>0?<div className="warning"><AlertTriangle/><div><b>Diferenças informativas</b>{warnings.map(w=><small key={w}>{w}</small>)}</div></div>:null}
       <button disabled={!a2} className="btn primary full">Criar luta <ArrowRight/></button><small className="disclaimer">Não há limite de lutas por atleta. A decisão final é do organizador.</small>
     </section>
