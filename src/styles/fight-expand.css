@@ -1,0 +1,18 @@
+.fight-expand-content {
+  display: block;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, opacity 0.2s ease, padding 0.3s ease;
+}
+
+.fight-card.expanded .fight-expand-content {
+  max-height: 500px;
+  opacity: 1;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+@media (max-width: 500px) {
+  .fight-details { grid-template-columns: 1fr; }
+}
