@@ -78,10 +78,35 @@
 .login-context-copy h1 { text-shadow: 0 2px 18px #72000a30; }
 .login-event-status > span { box-shadow: 0 0 0 5px #ffffff1a; }
 
+.login-brand-simple img {
+  border-radius: 11px;
+  box-shadow: 0 10px 25px #70000966;
+}
+.login-brand-simple strong em { color: #18181a; font-style: normal; }
+.login-brand-simple > div span { max-width: 210px; }
+.login-access { position: relative; align-content: center; }
+.login-footer {
+  position: absolute;
+  left: 42px;
+  right: 42px;
+  bottom: 26px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 18px;
+  border-top: 1px solid #29292d;
+  color: #77777e;
+}
+.login-footer img { border-radius: 5px; opacity: .82; }
+.login-footer p { display: flex; flex-direction: column; gap: 2px; margin: 0 auto 0 0; }
+.login-footer strong { color: #bdbdc2; font-size: 10px; text-transform: uppercase; letter-spacing: .8px; }
+.login-footer span,.login-footer small { font-size: 9px; }
+
 @media (max-width: 760px) {
   .login-screen::before {
     background:
       radial-gradient(ellipse 110% 35% at 50% 105%, #d9000e 0%, #650008 42%, transparent 76%),
       repeating-linear-gradient(90deg, #020203 0%, #0c0405 8%, #180708 13%, #030203 20%);
   }
+  .login-footer { position: static; width: 100%; margin-top: 34px; }
 }

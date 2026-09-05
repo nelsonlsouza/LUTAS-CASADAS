@@ -7,9 +7,9 @@ export default function Login({onLogin,configurationPending}){
   return <main className="login-screen">
     <section className="login-layout">
       <aside className="login-context">
-        <div className="login-brand-simple"><span className="login-brand-symbol">T</span><div><strong>Tatame</strong><span>Fight Manager</span></div></div>
+        <div className="login-brand-simple"><img src="/tatame-norte-mark.svg" alt="" width="48" height="48"/><div><strong>Tatame <em>Norte</em></strong><span>Gestão que conecta o jiu-jitsu</span></div></div>
         <div className="login-context-copy"><span className="login-overline">LUTAS CASADAS</span><h1>Organize o card.<br/>Conduza o evento.</h1><p>Gerencie atletas, confrontos e resultados em um único painel.</p></div>
-        <div className="login-event-status"><span/><div><strong>Sistema operacional</strong><small>Ambiente administrativo</small></div></div>
+        <div className="login-event-status"><span/><div><strong>Organiza. Conecta. Evolui.</strong><small>Manaus · Amazonas</small></div></div>
       </aside>
       <div className="login-access">
         <form className="login-form" onSubmit={submit}>
@@ -20,6 +20,7 @@ export default function Login({onLogin,configurationPending}){
           <button disabled={loading||configurationPending} className="login-action"><span>{loading?'Entrando...':'Entrar'}</span><ArrowRight size={19}/></button>
           <p className="login-security">Acesso exclusivo do organizador</p>
         </form>
+        <footer className="login-footer"><img src="/tatame-norte-mark.svg" alt="" width="20" height="20"/><p><strong>Tatame Norte</strong><span>Gestão de eventos de jiu-jitsu</span></p><small>© {new Date().getFullYear()}</small></footer>
       </div>
     </section>
   </main>;
