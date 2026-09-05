@@ -1,0 +1,46 @@
+.login-screen {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #030304;
+}
+
+.login-screen::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(ellipse 86% 50% at 50% 108%, #f00012 0%, #9e000b 25%, #3b0006 52%, transparent 77%),
+    repeating-linear-gradient(90deg, #020203 0%, #080304 4.5%, #160708 7.5%, #050304 11%, #010102 14%);
+  filter: saturate(1.12);
+}
+
+.login-screen::after {
+  content: '';
+  position: absolute;
+  left: -8%;
+  right: -8%;
+  bottom: -30%;
+  height: 60%;
+  z-index: -1;
+  border-radius: 50%;
+  background: #f00012;
+  filter: blur(95px);
+  opacity: .46;
+}
+
+.login-layout {
+  position: relative;
+  z-index: 1;
+  border-color: #343438;
+  box-shadow: 0 28px 80px #000c;
+}
+
+@media (max-width: 760px) {
+  .login-screen::before {
+    background:
+      radial-gradient(ellipse 110% 35% at 50% 105%, #d9000e 0%, #650008 42%, transparent 76%),
+      repeating-linear-gradient(90deg, #020203 0%, #0c0405 8%, #180708 13%, #030203 20%);
+  }
+}

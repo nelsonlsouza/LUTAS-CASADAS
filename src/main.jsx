@@ -4,5 +4,6 @@ import App from './App';
 import './styles/global.css';
 import './styles/fight-expand.css';
 import './styles/login.css';
+import './styles/login-scene.css';
 
 createRoot(document.getElementById('root')).render(<React.StrictMode><App /></React.StrictMode>);
